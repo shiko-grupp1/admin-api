@@ -5,6 +5,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
+      "launchUrl": "docs",
       "applicationUrl": "http://localhost:5030", // vilken port ska vi använda?
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
