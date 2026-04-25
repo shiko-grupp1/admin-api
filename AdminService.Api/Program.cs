@@ -1,21 +1,15 @@
+using AdminService.Api.OpenApi;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddOpenApiConfiguration();
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-app.MapOpenApi();
-
-if (app.Environment.IsDevelopment())
-{
-    app.MapScalarApiReference("/docs");
-}
+app.UseOpenApiConfiguration();
 
 app.UseCors("Frontend");
 
@@ -26,3 +20,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+
+
