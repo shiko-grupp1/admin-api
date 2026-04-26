@@ -1,11 +1,14 @@
 using AdminService.Api.OpenApi;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApiConfiguration();
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<PersistenceContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

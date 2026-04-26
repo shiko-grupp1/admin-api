@@ -6,7 +6,18 @@ public static class OpenApiConfiguration
 {
     public static IServiceCollection AddOpenApiConfiguration(this IServiceCollection services)
     {
-        services.AddOpenApi();
+        services.AddOpenApi(options =>
+        {
+            options.AddDocumentTransformer((document, context, cancellationToken) =>
+            {
+                document.Info.Title = "Admin Service API - LMS";
+                document.Info.Version = "v1";
+                document.Info.Description = "API for managing users and roles";
+
+                return Task.CompletedTask;
+            });
+        });
+
         return services;
     }
 
