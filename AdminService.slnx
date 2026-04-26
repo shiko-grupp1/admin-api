@@ -1,4 +1,6 @@
 <Solution>
-  <Project Path="AdminService.Api/AdminService.Api.csproj" />
-  <Project Path="AdminService.Infrastructure/AdminService.Infrastructure.csproj" />
+  <Folder Name="/src/">
+    <Project Path="src/AdminService.Api/AdminService.Api.csproj" />
+    <Project Path="src/AdminService.Infrastructure/AdminService.Infrastructure.csproj" />
+  </Folder>
 </Solution>
