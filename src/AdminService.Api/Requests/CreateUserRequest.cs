@@ -1,3 +1,3 @@
 ﻿namespace AdminService.Api.Requests;
 
-public sealed record CreateUserRequest();
+public sealed record CreateUserRequest(string Email, string Password);
