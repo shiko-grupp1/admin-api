@@ -1,4 +1,6 @@
 ﻿using AdminService.Api.Requests;
+using AdminService.Api.Shared.Extensions;
+using AdminService.Application.Shared.Results;
 using AdminService.Application.Users.Inputs;
 using AdminService.Application.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +19,14 @@ public class UsersController(IUserService userService) : ControllerBase
 
         var result = await userService.CreateUserAsync(input, ct);
 
-        if (result.IsFailure)
-        {
-            return result.ToHttpFailResult();
-        }
-
-        return Ok();
+        return result.IsSuccess
+            ? Ok()
+            : ResultMapper.MapToActionResult(result);  
     }
-
 }
+
+/*
+return result.IsSuccess
+    ? CreatedAtAction(nameof(GetById), new { id = result.Value }, null)
+    : ResultMapper.MapToActionResult(result);
+*/

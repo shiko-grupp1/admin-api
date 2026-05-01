@@ -1,5 +1,9 @@
-﻿namespace AdminService.Application.Users.Interfaces;
+﻿using AdminService.Application.Shared.Results;
+using AdminService.Application.Users.Inputs;
 
-internal interface IUserService
+namespace AdminService.Application.Users.Interfaces;
+
+public interface IUserService
 {
+    Task<Result> CreateUserAsync(CreateUserInput input, CancellationToken ct = default);
 }
