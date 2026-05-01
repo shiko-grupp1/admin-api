@@ -14,4 +14,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\AdminService.Application\AdminService.Application.csproj" />
+  </ItemGroup>
+
 </Project>
