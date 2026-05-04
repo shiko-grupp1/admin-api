@@ -4,4 +4,5 @@
     <Project Path="src/AdminService.Infrastructure/AdminService.Infrastructure.csproj" />
   </Folder>
   <Project Path="AdminService.Application/AdminService.Application.csproj" Id="df509f98-9f65-4faf-84d0-9a966e300d4c" />
+  <Project Path="src/AdminService.Domain/AdminService.Domain.csproj" Id="4b35b40a-b2d2-4af5-bedb-75c4ee296d5c" />
 </Solution>
