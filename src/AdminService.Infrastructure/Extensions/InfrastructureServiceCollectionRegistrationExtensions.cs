@@ -13,6 +13,8 @@ public static class InfrastructureServiceCollectionRegistrationExtensions
 
         services.AddPersistence(configuration);
 
+        
+
         return services;
     }
 }

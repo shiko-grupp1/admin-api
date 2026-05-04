@@ -1,4 +1,7 @@
-﻿using AdminService.Infrastructure.Persistence.Contexts;
+﻿using AdminService.Application.Shared;
+using AdminService.Application.Users.Interfaces;
+using AdminService.Infrastructure.Persistence.Contexts;
+using AdminService.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +23,12 @@ public static class PersistenceRegistrationExtension
 
         services.AddDbContext<PersistenceContext>(options =>
          options.UseSqlServer(connectionString));
+
+
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<PersistenceContext>());
+
+
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

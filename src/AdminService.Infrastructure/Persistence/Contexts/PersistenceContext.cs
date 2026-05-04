@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AdminService.Application.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdminService.Infrastructure.Persistence.Contexts;
 
-public class PersistenceContext(DbContextOptions<PersistenceContext> options) : DbContext(options)
+public class PersistenceContext(DbContextOptions<PersistenceContext> options) : DbContext(options), IUnitOfWork
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -10,4 +11,6 @@ public class PersistenceContext(DbContextOptions<PersistenceContext> options) : 
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PersistenceContext).Assembly);
     }
+
+ 
 }

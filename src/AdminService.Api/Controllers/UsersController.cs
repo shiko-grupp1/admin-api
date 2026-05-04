@@ -1,6 +1,5 @@
 ﻿using AdminService.Api.Requests;
 using AdminService.Api.Shared.Extensions;
-using AdminService.Application.Shared.Results;
 using AdminService.Application.Users.Inputs;
 using AdminService.Application.Users.Interfaces;
 using Microsoft.AspNetCore.Mvc;
