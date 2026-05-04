@@ -14,7 +14,7 @@ public class UsersController(IUserService userService) : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateUserRequest request, CancellationToken ct = default)
     {
-        var input = new CreateUserInput(request.Email, request.Password);
+        var input = new CreateUserInput(request.Email, request.Role);
 
         var result = await userService.CreateUserAsync(input, ct);
 

@@ -1,4 +1,4 @@
 ﻿namespace AdminService.Application.Users.Inputs;
 
-public sealed record CreateUserInput(string Email, string Password);
+public sealed record CreateUserInput(string Email, string Role);
 
