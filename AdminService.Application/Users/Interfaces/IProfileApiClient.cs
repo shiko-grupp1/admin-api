@@ -1,5 +1,4 @@
 ﻿using AdminService.Application.Shared.Results;
-using AdminService.Application.Users.Outputs;
 
 namespace AdminService.Application.Users.Interfaces;
 

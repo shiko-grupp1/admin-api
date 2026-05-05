@@ -14,6 +14,8 @@ public sealed class ProfileApiClient(HttpClient httpClient, IHttpContextAccessor
         if (string.IsNullOrWhiteSpace(userId)) 
             return Result.Failure(ErrorTypes.BadRequest, ProfileApiClientErrors.UserIdIsRequired);
 
+        CreateProfileRequest request = new(userId);
+
         // Hämtar Authorization-headern från requesten som kom in till AdminService från frontend
         string? authHeader = httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
 
@@ -22,7 +24,7 @@ public sealed class ProfileApiClient(HttpClient httpClient, IHttpContextAccessor
         using HttpRequestMessage requestMessage = new(HttpMethod.Post, "api/profile/create");
 
         // Sätter JSON-body på requesten
-        requestMessage.Content = JsonContent.Create(new CreateProfileRequest(userId));
+        requestMessage.Content = JsonContent.Create(request);
 
         // Om Authorization-headern finns, skicka den vidare till Profile API
         if (!string.IsNullOrWhiteSpace(authHeader))

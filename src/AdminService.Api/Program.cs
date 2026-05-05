@@ -1,35 +1,19 @@
 using AdminService.Api.OpenApi;
-using AdminService.Infrastructure.Extensions;
 using AdminService.Application.Extensions;
+using AdminService.Infrastructure.Extensions;
 
-
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApiConfiguration();
-
 builder.Services.AddControllers();
-
 builder.Services.AddInfrastructure(builder.Configuration);
-
 builder.Services.AddApplication();
 
-// för jwt forwarding
-builder.Services.AddHttpContextAccessor();
-
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 app.UseOpenApiConfiguration();
-
 app.UseCors("Frontend");
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
-
-
-
-
