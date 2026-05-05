@@ -2,11 +2,13 @@
 using AdminService.Api.Shared.Extensions;
 using AdminService.Application.Users.Inputs;
 using AdminService.Application.Users.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminService.Api.Controllers;
 // Controller -> Handler -> Service -> Repository -> Database
 
+[Authorize(Roles = "Admin")]
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController(IUserService userService) : ControllerBase

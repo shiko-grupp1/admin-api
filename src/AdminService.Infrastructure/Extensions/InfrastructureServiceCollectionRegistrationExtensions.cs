@@ -1,5 +1,6 @@
-Ôªøusing AdminService.Application.Users.Interfaces;
+using AdminService.Application.Users.Interfaces;
 using AdminService.Infrastructure.Auth;
+using AdminService.Infrastructure.ProfileApi;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,14 +13,21 @@ public static class InfrastructureServiceCollectionRegistrationExtensions
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        // configuration h√§mtar baseUrl fr√•n appsettings.dev, som √§r roten till API:t, inte endpointen
+        services.AddHttpContextAccessor();
+
+        // configuration h‰mtar baseUrl frÂn appsettings.dev, som ‰r roten till API:t, inte endpointen
         services.AddHttpClient<IAuthApiClient, AuthApiClient>(client =>
         {
             client.BaseAddress = new Uri(configuration["AuthApi:BaseUrl"]!);
         });
 
+        services.AddHttpClient<IProfileApiClient, ProfileApiClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["ProfileApi:BaseUrl"]!);
+        });
 
 
         return services;
     }
 }
+

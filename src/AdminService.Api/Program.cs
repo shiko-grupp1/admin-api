@@ -13,6 +13,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 builder.Services.AddApplication();
 
+// för jwt forwarding
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

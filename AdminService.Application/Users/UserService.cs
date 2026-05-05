@@ -1,6 +1,7 @@
 ﻿using AdminService.Application.Shared.Results;
 using AdminService.Application.Users.Inputs;
 using AdminService.Application.Users.Interfaces;
+using AdminService.Application.Users.Outputs;
 
 namespace AdminService.Application.Users;
 
@@ -18,17 +19,26 @@ public sealed class UserService(IAuthApiClient authApiClient, IProfileApiClient 
             return Result.Failure(ErrorTypes.BadRequest, UserServiceErrors.RoleIsRequired);
 
 
-        var authResult = await authApiClient.CreateAuthUserAsync(input.Email, input.Role, ct);
+        Result<CreateAuthUserOutput> authResult = await authApiClient.CreateAuthUserAsync(input.Email, input.Role, ct);
 
         if (authResult.IsFailure)
             return Result.Failure(authResult.Error!);
 
-        var userId = authResult.Value!.UserId;
+        string userId = authResult.Value!.UserId;
 
-        var profileResult = await profileApiClient.CreateProfileAsync(userId, ct);
+        Result profileResult = await profileApiClient.CreateProfileAsync(userId, ct);
 
         if (profileResult.IsFailure)
+        {
+            Result deleteResult = await authApiClient.DeleteAuthUserAsync(userId, ct);
+
+            if (deleteResult.IsFailure)
+            {
+                return Result.Failure(ErrorTypes.ExternalServiceError, UserServiceErrors.ProfileCreationAndRollbackFailed);
+            }
+
             return Result.Failure(profileResult.Error!);
+        }
 
         return Result.Success();
     }
@@ -40,12 +50,4 @@ Commita var för sig.
 Skapa IProfileApiClient, ProfileApiClient, CreateProfileAsync i IProfileApiClient och ProfileApiClient. OutPut?
 */
 
-/*
- 
-Undvika att auth lyckas med profile misslyckas
-if (profileResult.IsFailure)
-{
-    await authApiClient.DeleteUserAsync(userId);
-    return Result.Failure(...);
-}
-*/
+
