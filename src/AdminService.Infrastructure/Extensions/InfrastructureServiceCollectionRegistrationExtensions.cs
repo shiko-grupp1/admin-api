@@ -1,4 +1,5 @@
-﻿using AdminService.Infrastructure.Persistence;
+﻿using AdminService.Application.Users.Interfaces;
+using AdminService.Infrastructure.Auth;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,9 +12,13 @@ public static class InfrastructureServiceCollectionRegistrationExtensions
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        services.AddPersistence(configuration);
+        // configuration hämtar baseUrl från appsettings.dev, som är roten till API:t, inte endpointen
+        services.AddHttpClient<IAuthApiClient, AuthApiClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["AuthApi:BaseUrl"]!);
+        });
 
-        
+
 
         return services;
     }

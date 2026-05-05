@@ -19,6 +19,7 @@ public static class ResultMapper
             ErrorTypes.NotFound => new NotFoundObjectResult(error.Message),
             ErrorTypes.BadRequest => new BadRequestObjectResult(error.Message),
             ErrorTypes.Conflict => new ConflictObjectResult(error.Message),
+            ErrorTypes.ExternalServiceError => new ObjectResult(error.Message) { StatusCode = 502 },
             _ => new ObjectResult(error.Message) { StatusCode = 500 }
         };
     }

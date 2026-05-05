@@ -1,4 +1,6 @@
-﻿namespace AdminService.Application.Shared.Results;
+﻿using AdminService.Application.Users.Outputs;
+
+namespace AdminService.Application.Shared.Results;
 
 public sealed record Result
 {
@@ -16,7 +18,13 @@ public sealed record Result
     }
 
     public static Result Success() => new(true);
+    // för redan skapade ResultErrors
     public static Result Failure(ResultError error) => new(false, error);
+
+    public static Result Failure(ErrorTypes type, string message, string? details = null)
+    {
+        return Failure(new ResultError(type, message, details));
+    }
 }
 
 public sealed record Result<T> 
@@ -36,4 +44,9 @@ public sealed record Result<T>
 
     public static Result<T> Success(T value) => new(true, null, value);
     public static Result<T> Failure(ResultError error) => new(false, error, default);
+
+    public static Result<T> Failure(ErrorTypes type, string message, string? details = null)
+    {
+        return Failure(new ResultError(type, message, details));
+    }
 }
