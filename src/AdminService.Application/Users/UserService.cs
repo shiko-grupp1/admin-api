@@ -44,10 +44,6 @@ public sealed class UserService(IAuthApiClient authApiClient, IProfileApiClient 
     }
 }
 
-/*
-Fortsätt med AuthApiClient och ProfileApiClient, där du implementerar de faktiska HTTP-anropen till respektive API. Se till att hantera eventuella fel som kan uppstå under dessa anrop och returnera lämpliga Result-objekt baserat på utfallet av varje operation.
-Commita var för sig.
-Skapa IProfileApiClient, ProfileApiClient, CreateProfileAsync i IProfileApiClient och ProfileApiClient. OutPut?
-*/
+
 
 

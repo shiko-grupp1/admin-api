@@ -16,7 +16,7 @@ public class AuthApiClient(HttpClient httpClient, IHttpContextAccessor httpConte
 
         CreateAuthUserRequest request = new(email, role);
 
-        using HttpRequestMessage requestMessage = new(HttpMethod.Post, "api/authentication/admin/register")
+        using HttpRequestMessage requestMessage = new(HttpMethod.Post, "api/authentication/admin/register");
 
         requestMessage.Content = JsonContent.Create(request);
 
