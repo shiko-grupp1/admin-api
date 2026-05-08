@@ -1,4 +1,6 @@
-ï»¿using AdminService.Infrastructure.Persistence;
+using AdminService.Application.Users.Interfaces;
+using AdminService.Infrastructure.Auth;
+using AdminService.Infrastructure.ProfileApi;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,8 +13,21 @@ public static class InfrastructureServiceCollectionRegistrationExtensions
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(configuration);
 
-        services.AddPersistence(configuration);
+        services.AddHttpContextAccessor();
+
+        // configuration hämtar baseUrl från appsettings.dev, som är roten till API:t, inte endpointen
+        services.AddHttpClient<IAuthApiClient, AuthApiClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["AuthApi:BaseUrl"]!);
+        });
+
+        services.AddHttpClient<IProfileApiClient, ProfileApiClient>(client =>
+        {
+            client.BaseAddress = new Uri(configuration["ProfileApi:BaseUrl"]!);
+        });
+
 
         return services;
     }
 }
+
